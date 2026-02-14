@@ -26,21 +26,30 @@ body{
 
 .container{width:100%;display:flex;justify-content:center;padding:18px;}
 
-.card{
-  background:var(--card-bg);
-  backdrop-filter:blur(20px);
-  width:min(420px,92vw);
-  min-height:520px;
-  padding:44px 26px;
-  border-radius:40px;
-  box-shadow:var(--shadow);
-  text-align:center;
-  position:relative;
-  border:1px solid rgba(255,255,255,0.8);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  overflow:hidden;
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  width: min(420px, 92vw);
+  min-height: 520px;
+  padding: 40px 26px;
+  border-radius: 40px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  /* ZMĚNA: Toto vycent
+  ruje vše v kartě vertikálně */
+  justify-content: center; 
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Úvodní text (subtitle) - dáme mu fixní výšku, aby nadpisy neskákaly */
+h2#subtitle {
+  min-height: 24px;
+  margin-bottom: 5px;
 }
 
 .emoji-header{
@@ -70,32 +79,34 @@ h2{
   margin-bottom:10px;
 }
 
-.actions{
-  margin-top:18px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  align-items:center;
-  position:relative;
-  min-height:220px;      /* víc prostoru, aby runaway měl kam */
-  width:100%;
-  justify-content:flex-start;
-  padding:8px;
-  overflow:hidden;       /* DŮLEŽITÉ: NE nikdy ven */
+.actions {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  position: relative;
+  /* ZMĚNA: Pevná výška zajistí, že se karta nebude hýbat */
+  height: 180px; 
+  width: 100%;
+  /* ZMĚNA: Vycentrování tlačítek uvnitř jejich boxu */
+  justify-content: center; 
+  padding: 10px;
+  overflow: visible;
 }
 
-.btn{
-  border:none;
-  padding:18px 28px;
-  border-radius:22px;
-  font-size:18px;
-  font-weight:900;
-  cursor:pointer;
-  user-select:none;
-  width:100%;
-  max-width:320px;
-  transition:transform .18s ease, filter .18s ease;
-  -webkit-tap-highlight-color:transparent;
+/* Tlačítka musí mít fixní šířku, aby vypadala pořád stejně */
+.btn {
+  border: none;
+  padding: 18px 28px;
+  border-radius: 22px;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+  user-select: none;
+  width: 280px; /* Pevná šířka pro všechna tlačítka */
+  transition: transform .18s ease, filter .18s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn:active{transform:scale(.98);}
@@ -113,14 +124,11 @@ h2{
   z-index:1;
 }
 
-.btn-runaway{
-  position:absolute;
-  width:auto;
-  min-width:120px;
-  max-width:55%;
-  padding:14px 18px;
-  border-radius:20px;
-  transition:left .12s ease-out, top .12s ease-out;
+.btn-runaway {
+  position: absolute !important;
+  width: 120px !important; /* Trochu menší pro lepší efekt */
+  z-index: 1000; /* Musí být nad vším ostatním */
+  transition: left .15s ease-out, top .15s ease-out; /* Plynulejší skok */
 }
 /* Třída pro vycentrování obsahu karty na konci */
 .card--centered {
