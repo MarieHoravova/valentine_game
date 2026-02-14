@@ -1,106 +1,155 @@
 :root {
-    --primary: #ff4d8d;
-    --primary-hover: #ff75a7;
-    --bg-gradient: linear-gradient(135deg, #fff5f8 0%, #ffe3ee 100%);
-    --card-bg: rgba(255, 255, 255, 0.9);
-    --text-main: #2d3436;
-    --text-muted: #636e72;
-    --shadow: 0 20px 40px rgba(255, 77, 141, 0.15);
+  --primary:#ff4d8d;
+  --primary-hover:#ff75a7;
+  --bg-gradient:linear-gradient(135deg,#fff5f8 0%,#ffe3ee 100%);
+  --card-bg:rgba(255,255,255,0.95);
+  --text-main:#2d3436;
+  --text-muted:#636e72;
+  --shadow:0 30px 60px rgba(255,77,141,0.2);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*{box-sizing:border-box;margin:0;padding:0;}
 
-body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg-gradient);
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    color: var(--text-main);
+body{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg-gradient);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  color:var(--text-main);
 }
 
-.container { width: 100%; padding: 20px; display: flex; justify-content: center; }
+.bg{position:fixed;inset:0;z-index:-1;}
+.floaters{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
 
-.card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    width: 100%;
-    max-width: 400px;
-    padding: 40px 30px;
-    border-radius: 30px;
-    box-shadow: var(--shadow);
-    text-align: center;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.container{width:100%;display:flex;justify-content:center;padding:18px;}
+
+.card{
+  background:var(--card-bg);
+  backdrop-filter:blur(20px);
+  width:min(420px,92vw);
+  min-height:520px;
+  padding:44px 26px;
+  border-radius:40px;
+  box-shadow:var(--shadow);
+  text-align:center;
+  position:relative;
+  border:1px solid rgba(255,255,255,0.8);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
 }
 
-.emoji-header {
-    font-size: 70px;
-    margin-bottom: 20px;
-    position: relative;
-    display: inline-block;
+.emoji-header{
+  font-size:78px;
+  margin-bottom:18px;
+  position:relative;
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  align-items:center;
 }
 
-.sparkle {
-    position: absolute;
-    top: 0; right: -20px;
-    font-size: 24px;
-    animation: twinkle 1.5s infinite;
+.fade-in{animation:fadeIn .45s ease-out forwards;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+h1{
+  font-size:clamp(26px,6.3vw,34px);
+  font-weight:900;
+  margin:10px 0 12px;
+  line-height:1.15;
 }
 
-h1 { font-size: 28px; margin-bottom: 12px; font-weight: 800; letter-spacing: -0.5px; }
-#subtitle { font-size: 16px; color: var(--text-muted); margin-bottom: 30px; line-height: 1.5; }
-
-.actions {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    min-height: 60px;
-    position: relative;
+h2{
+  font-size:clamp(15px,4.2vw,18px);
+  font-weight:600;
+  color:var(--text-muted);
+  margin-bottom:10px;
 }
 
-.btn {
-    border: none;
-    padding: 16px 32px;
-    border-radius: 20px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    user-select: none;
-    touch-action: manipulation;
+.actions{
+  margin-top:18px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  align-items:center;
+  position:relative;
+  min-height:220px;      /* víc prostoru, aby runaway měl kam */
+  width:100%;
+  justify-content:flex-start;
+  padding:8px;
+  overflow:hidden;       /* DŮLEŽITÉ: NE nikdy ven */
 }
 
-.btn-primary {
-    background: var(--primary);
-    color: white;
-    box-shadow: 0 8px 15px rgba(255, 77, 141, 0.3);
-    flex-grow: 1;
+.btn{
+  border:none;
+  padding:18px 28px;
+  border-radius:22px;
+  font-size:18px;
+  font-weight:900;
+  cursor:pointer;
+  user-select:none;
+  width:100%;
+  max-width:320px;
+  transition:transform .18s ease, filter .18s ease;
+  -webkit-tap-highlight-color:transparent;
 }
 
-.btn-primary:hover { transform: translateY(-2px); background: var(--primary-hover); }
+.btn:active{transform:scale(.98);}
 
-.btn-secondary { background: #f1f2f6; color: var(--text-muted); flex-grow: 1; }
-
-/* Animace úniku pro NE tlačítko */
-.btn-runaway {
-    position: fixed; /* Aby se mohl pohybovat po celém displayi, pokud chceš, nebo změň na absolute pro kartu */
-    z-index: 1000;
-    transition: all 0.1s ease-out;
+.btn-primary{
+  background:var(--primary);
+  color:#fff;
+  box-shadow:0 10px 22px rgba(255,77,141,0.30);
+  z-index:2;
 }
 
-@keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.1); } }
-
-.floater {
-    position: absolute;
-    top: -50px;
-    pointer-events: none;
-    animation: fall linear forwards;
+.btn-secondary{
+  background:#f1f2f6;
+  color:var(--text-muted);
+  z-index:1;
 }
 
-@keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); }
+.btn-runaway{
+  position:absolute;
+  width:auto;
+  min-width:120px;
+  max-width:55%;
+  padding:14px 18px;
+  border-radius:20px;
+  transition:left .12s ease-out, top .12s ease-out;
 }
+/* Třída pro vycentrování obsahu karty na konci */
+.card--centered {
+  justify-content: center !important;
+}
+
+.final-message {
+  font-size: clamp(28px, 7vw, 38px);
+  font-weight: 900;
+  color: var(--primary);
+  margin-top: 30px; /* Trochu víc místa od textu nad tím */
+  text-shadow: 0 4px 15px rgba(255, 77, 141, 0.15);
+  cursor: default;
+  user-select: none;
+  opacity: 0;
+  animation: simpleFadeIn 0.8s ease-out forwards;
+}
+
+@keyframes simpleFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.1); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+  70% { transform: scale(1); }
+}
+.floater{position:absolute;pointer-events:none;animation:fall linear forwards;z-index:10;}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);}}
