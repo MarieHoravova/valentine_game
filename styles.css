@@ -1,0 +1,106 @@
+:root {
+    --primary: #ff4d8d;
+    --primary-hover: #ff75a7;
+    --bg-gradient: linear-gradient(135deg, #fff5f8 0%, #ffe3ee 100%);
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+    --shadow: 0 20px 40px rgba(255, 77, 141, 0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg-gradient);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: var(--text-main);
+}
+
+.container { width: 100%; padding: 20px; display: flex; justify-content: center; }
+
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 30px;
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.emoji-header {
+    font-size: 70px;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.sparkle {
+    position: absolute;
+    top: 0; right: -20px;
+    font-size: 24px;
+    animation: twinkle 1.5s infinite;
+}
+
+h1 { font-size: 28px; margin-bottom: 12px; font-weight: 800; letter-spacing: -0.5px; }
+#subtitle { font-size: 16px; color: var(--text-muted); margin-bottom: 30px; line-height: 1.5; }
+
+.actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    min-height: 60px;
+    position: relative;
+}
+
+.btn {
+    border: none;
+    padding: 16px 32px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    touch-action: manipulation;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 8px 15px rgba(255, 77, 141, 0.3);
+    flex-grow: 1;
+}
+
+.btn-primary:hover { transform: translateY(-2px); background: var(--primary-hover); }
+
+.btn-secondary { background: #f1f2f6; color: var(--text-muted); flex-grow: 1; }
+
+/* Animace úniku pro NE tlačítko */
+.btn-runaway {
+    position: fixed; /* Aby se mohl pohybovat po celém displayi, pokud chceš, nebo změň na absolute pro kartu */
+    z-index: 1000;
+    transition: all 0.1s ease-out;
+}
+
+@keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.1); } }
+
+.floater {
+    position: absolute;
+    top: -50px;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
+}
