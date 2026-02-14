@@ -126,24 +126,29 @@ document.addEventListener("DOMContentLoaded",()=>{
     renderButtons(!!st.run);
   }
 
-    function handleYes(){
-    // 1. Přidáme kartě třídu pro vycentrování
-    const card = document.getElementById("card");
-    card.classList.add("card--centered");
+  function handleYes(){
+      // 1. Přidáme kartě třídu pro vycentrování
+      const card = document.getElementById("card");
+      card.classList.add("card--centered");
 
-    // 2. Nastavíme texty a emoji
-    setStage("","Až ti bude líp, zajdeme na randíčko 😇","😚");
-    
-    // 3. Vložíme finální vzkaz
-    actions.innerHTML = '<div class="final-message" id="thanks">Milískuju tě! 💗</div>';
-    
-    // Efekty zůstávají
-    spawnHearts();
-    document.getElementById("thanks").addEventListener("click", spawnHearts);
-    
-    setTimeout(spawnHearts, 500);
-    setTimeout(spawnHearts, 1000);
-    }
+      // 2. Upravíme subtitle - přidáme mu třídu pro černý tučný vzhled
+      subtitle.classList.add("final-subtitle");
+      setStage("","Až ti bude líp, zajdeme na randíčko 😇","😚");
+      
+      // 3. Vložíme finální vzkaz (Milískuju tě)
+      actions.innerHTML = '<div class="final-message" id="thanks">Milískuju tě! 💗</div>';
+      
+      // Odstraníme NE tlačítko, pokud by náhodou zůstalo viset v kartě
+      const runBtn = card.querySelector(".btn-runaway");
+      if(runBtn) runBtn.remove();
+
+      // Efekty srdíček
+      spawnHearts();
+      document.getElementById("thanks").addEventListener("click", spawnHearts);
+      
+      setTimeout(spawnHearts, 500);
+      setTimeout(spawnHearts, 1000);
+  }
 
   mainBtn.addEventListener("click",()=>{
     noCount=0;
